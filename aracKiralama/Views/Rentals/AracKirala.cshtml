@@ -1,0 +1,66 @@
+﻿@using aracKiralama.Models
+@model Rentals
+
+@{
+    ViewBag.Title = "AracKirala";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+<h2>Arac Kiralama Sayfası</h2>
+
+<form action="/Rentals/AracKirala" method="post">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @if (Model != null)
+            {
+                <input type="hidden" class="form-control" value="@Model.KiralamaID" name="KiralamaID" />
+            }
+            @if (Model != null)
+            {
+                <input type="hidden" class="form-control" value="@Model.MusteriID" name="MüsteriID" />
+            }
+            <label for="inputEmail4"></label>
+            @if (Model != null)
+            {
+                <input type="hidden" class="form-control" name="AracID" value="@Model.AracID" id="AracID">
+            }
+
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Kiralama Tarihi</label>
+            @if (Model != null)
+            {
+                <input type="datetime" class="form-control" name="AracModeli" value="@Model.KiralamaTarihi" id="KiralamaTarihi">
+            }
+            else
+            {
+                <input type="datetime" class="form-control" name="KiralamaTarihi" value="" id="KiralamaTarihi">
+            }
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">İade Tarihi</label>
+            @if (Model != null)
+            {
+                <input type="datetime" class="form-control" value="@Model.IadeTarihi" name="IadeTarihi" id="IadeTarihi">
+            }
+            else
+            {
+                <input type="datetime" class="form-control" name="IadeTarihi" id="IadeTarihi">
+            }
+
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Toplam Fiyat</label>
+        
+
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputState">Tedarikçi</label>
+        </div>
+
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kirala</button>
+</form>
+

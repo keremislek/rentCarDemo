@@ -1,0 +1,36 @@
+﻿@using aracKiralama.Models
+@model Vehicles
+@{
+    ViewBag.Title = "SirketListele";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+<h2>Şirketler Sayfası</h2>
+<a href="/VehicleOwners/SirketEkle" class="btn bg-white">Yeni Şirket Ekle</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+
+            <th scope="col">Şirket Adı</th>
+            <th scope="col">Adres</th>
+            <th scope="col">Telefon Numarası</th>
+            <th scope="col">Araçlar</th>
+
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (VehicleOwners vo in ViewBag.vehicleOwners as List<VehicleOwners>)
+        {
+            <tr>
+                <td>@vo.SirketAdi</td>
+                <td>@vo.SirketAdresi</td>
+                <td>@vo.SahipTelefon</td>
+                <td>@vo.Vehicles</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

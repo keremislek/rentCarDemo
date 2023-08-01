@@ -1,0 +1,17 @@
+﻿@using aracKiralama.Models
+@model Vehicles
+
+@{
+    ViewBag.Title = "AracSil";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+<h2>Araç Silme Sayfası</h2>
+<form action="/Vehicles/AracSil" method="post">
+    <label>@Model.AracAdi silmek istiyor musunuz</label>
+    <input typeof="hidden" name="AracID" value="@Model.AracID" readonly />
+    <br />
+    <input type="submit" value="Evet" class="btn btn-danger" /> <br />
+    <a class="btn btn-dark" href="/Vehicles/AraclariListele">Hayır</a>
+</form>
+
