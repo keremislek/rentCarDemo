@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\GuvenlikController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RentalsController.cs" />
@@ -155,6 +156,8 @@
     <Content Include="Views\Guvenlik\Hata.cshtml" />
     <Content Include="Views\Guvenlik\SignUp.cshtml" />
     <Content Include="Views\VehicleOwners\SirketEkle.cshtml" />
+    <Content Include="Views\Customer\MusteriEkle.cshtml" />
+    <Content Include="Views\Customer\MusteriSil.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,61 @@
+﻿@using aracKiralama.Models
+@model Customers
+@{
+    ViewBag.Title = "MusteriEkle";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+<h2>Müşteri Ekleme Sayfası</h2>
+<form class="mx-1 mx-md-4" action="/Customer/MusteriEkle" method="post">
+
+
+    <div class="form-group">
+        <input type="hidden" class="form-control" value="@Model.MusteriID" " id="MusteriID" name="MusteriID">
+    </div>
+
+
+    <div class="d-flex flex-row align-items-center mb-4">
+        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+        <div class="form-outline flex-fill mb-0">
+            <input type="text" id="MusteriAdi" name="MusteriAdi" value="@Model.MusteriAdi" class="form-control" />
+            <label class="form-label" for="form3Example1c">Müşteri Adı</label>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row align-items-center mb-4">
+        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+        <div class="form-outline flex-fill mb-0">
+            <input type="text" id="MusteriTelefon" class="form-control" name="MusteriTelefon" value="@Model.MusteriTelefon" />
+            <label class="form-label" for="form3Example3c">Telefon Numarası</label>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row align-items-center mb-4">
+        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+        <div class="form-outline flex-fill mb-0">
+            <input type="text" id="MusteriAdres" class="form-control" name="MusteriAdres" value="@Model.MusteriAdres" />
+            <label class="form-label" for="form3Example4c">Adress</label>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label>Kullanıcı Adı</label>
+        <select class="form-select-list" id="KullaniciID" name="KullaniciID">
+            @foreach (Users t in ViewBag.users as List<Users>)
+            {
+
+
+                if (t.RolID == 2)
+                {
+                    <option value="@t.KullaniciID">@t.KullaniciAdi</option>
+                }
+
+            }
+        </select>
+    </div>
+
+    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+        <button type="submit" class="btn btn-primary">Ekle</button>
+    </div>
+</form>
+

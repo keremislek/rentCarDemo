@@ -38,9 +38,9 @@ namespace aracKiralama.Controllers
         [HttpPost]
         [Authorize]
         [MyAuthorization(Roles = "3")]
-        public ActionResult AracEkle(Vehicles vehicles)
+        public ActionResult AracEkle(Vehicles vehicle)
         {
-            model.Vehicles.AddOrUpdate(vehicles);
+            model.Vehicles.Add(vehicle);
             model.SaveChanges();
 
             return RedirectToAction("AraclariListele");

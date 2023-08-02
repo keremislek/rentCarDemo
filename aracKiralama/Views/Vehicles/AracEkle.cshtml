@@ -5,94 +5,66 @@
     Layout = "~/Views/Layout.cshtml";
 }
 
-<h2>Araç Ekleme Sayfası</h2>
-<form action="/Vehicles/AracEkle" method="post">
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            @if (Model != null)
-            {
-                <input type="hidden" class="form-control" value="@Model.AracID" name="AracID" />
-            }
-            <label for="inputEmail4">Araç Adı</label>
-            @if (Model != null)
-            {
-                <input type="text" class="form-control" name="UrunAdi" value="@Model.AracAdi" id="AracAdi">
-            }
-            else
-            {
-                <input type="text" class="form-control" name="AracAdi" value="" id="AracAdi">
-            }
+<h2>Araç Ekle</h2>
+<form class="mx-1 mx-md-4" action="/Vehicles/AracEkle" method="post">
 
-        </div>
-        <div class="form-group col-md-6">
-            <label for="inputEmail4">Araç Modeli</label>
-            @if (Model != null)
-            {
-                <input type="text" class="form-control" name="AracModeli" value="@Model.AracModeli" id="AracModeli">
-            }
-            else
-            {
-                <input type="text" class="form-control" name="AracModeli" value="" id="AracModeli">
-            }
-        </div>
-        <div class="form-group col-md-6">
-            <label for="inputEmail4">Araç Yılı</label>
-            @if (Model != null)
-            {
-                <input type="number" class="form-control" value="@Model.AracYili" name="AracYili" id="AracYili">
-            }
-            else
-            {
-                <input type="number" class="form-control" name="AracYili" id="AracYili">
-            }
 
-        </div>
-        <div class="form-group col-md-6">
-            <label for="inputEmail4">Resim</label>
-            @if (Model != null)
-            {
-                <input type="number" class="form-control" value="@Model.AracResim" name="AracResim" id="AracResim">
-            }
-            else
-            {
-                <input type="number" class="form-control" name="AracResim" id="AracResim">
-            }
-
-        </div>
-        <div class="form-group col-md-6">
-            <label for="inputEmail4">Fiyat</label>
-            @if (Model != null)
-            {
-                <input type="number" class="form-control" value="@Model.KiralamaFiyati" name="KiralamaFiyati" id="KiralamaFiyati">
-            }
-            else
-            {
-                <input type="text" class="form-control" name="KiralamaFiyati" id="KiralamaFiyati">
-            }
-
-        </div>
-
-        <div class="form-group col-md-4">
-            <label for="inputState">Tedarikçi</label>
-            <select name="TedarikciID" id="TedarikciID" class="form-control">
-
-                @foreach (VehicleOwners t in ViewBag.vehicleOwners as List<VehicleOwners>)
-                {
-                    <option value="@t.SahipID">@t.SirketAdi</option>
-
-                }
-                @if (Model.VehicleOwners != null)
-                {
-                    <option value="@Model.VehicleOwners" selected>@Model.VehicleOwners.SirketAdi</option>
-                }
-
-            </select>
-        </div>
-    
-
+    <div class="form-group">
+        <input type="hidden" class="form-control" value="@Model.AracID" id="AracID" name="AracID">
     </div>
 
-    <button type="submit" class="btn btn-primary">Ekle</button>
+
+    <div class="d-flex flex-row align-items-center mb-4">
+        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+        <div class="form-outline flex-fill mb-0">
+            <input type="text" id="AracAdi" name="AracAdi" value="@Model.AracAdi" class="form-control" />
+            <label class="form-label" for="form3Example1c">Araba Marka</label>
+        </div>
+    </div>
+    <div class="d-flex flex-row align-items-center mb-4">
+        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+        <div class="form-outline flex-fill mb-0">
+            <input type="text" id="AracYili" class="form-control" name="AracModeli" value="@Model.AracModeli" />
+            <label class="form-label" for="form3Example3c">Araç Tipi</label>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row align-items-center mb-4">
+        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+        <div class="form-outline flex-fill mb-0">
+            <input type="text" id="AracYili" class="form-control" name="AracYili" value="@Model.AracYili" />
+            <label class="form-label" for="form3Example3c">Araç Yılı</label>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row align-items-center mb-4">
+        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+        <div class="form-outline flex-fill mb-0">
+            <input type="number" id="Sifre" class="form-control" name="KiralamaFiyati" value="@Model.KiralamaFiyati" />
+            <label class="form-label" for="form3Example4c">Günlük Fiyat</label>
+        </div>
+    </div>
+    <div class="d-flex flex-row align-items-center mb-4">
+        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+        <div class="form-outline flex-fill mb-0">
+            <input type="text" id="AracResim" class="form-control" name="AracResim" value="@Model.AracResim" />
+            <label class="form-label" for="form3Example4c">Araç Foto</label>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label>Tedarikçi Firma</label>
+        <select class="form-select-list" id="AracSahibiID" name="AracSahibiID">
+            @foreach (VehicleOwners v in ViewBag.vehicleOwners as List<VehicleOwners>)
+            {
+                <option value="@v.SahipID">@v.SirketAdi</option>
+            }
+        </select>
+    </div>
+
+    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+        <button type="submit" class="btn btn-primary">Ekle</button>
+    </div>
 </form>
 
 

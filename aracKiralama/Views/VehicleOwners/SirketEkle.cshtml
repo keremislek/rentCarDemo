@@ -7,13 +7,12 @@
 
 <h2>SirketEkle</h2>
 <form class="mx-1 mx-md-4" action="/VehicleOwners/SirketEkle" method="post">
-    <div class="d-flex flex-row align-items-center mb-4">
-            <input type="hidden" class="form-control" value="@Model.SahipID" name="SahipID" />
+
+
+    <div class="form-group">
+        <input type="hidden" class="form-control" value="@Model.SahipID"  id="SahipID" name="SahipID">
     </div>
-    <div class="d-flex flex-row align-items-center mb-4">
-        
-        <input type="hidden" class="form-control" value="@Model.KullaniciID" name="KullaniciID" />
-    </div>
+
 
     <div class="d-flex flex-row align-items-center mb-4">
         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
@@ -41,11 +40,26 @@
     <div class="d-flex flex-row align-items-center mb-4">
         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
         <div class="form-outline flex-fill mb-0">
-            <input type="text" id="Sifre" class="form-control" name="SirketAdi" value="@Model.SirketAdresi" />
+            <input type="text" id="SirketAdresi" class="form-control" name="SirketAdresi" value="@Model.SirketAdresi" />
             <label class="form-label" for="form3Example4c">Şirket Adresi</label>
         </div>
     </div>
+    <br />
+    <div class="form-group">
+        <label>Kullanıcı</label>
+        <select class="form-select-list" id="KullaniciID" name="KullaniciID">
+            @foreach (Users t in ViewBag.users as List<Users>)
+            {
 
+
+                if (t.RolID == 3 )
+                {
+                    <option value="@t.KullaniciID">@t.KullaniciAdi</option>
+                }
+
+            }
+        </select>
+    </div>
 
     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
         <button type="submit" class="btn btn-primary">Ekle</button>

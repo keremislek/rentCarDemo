@@ -1,0 +1,17 @@
+﻿@using aracKiralama.Models
+@model Customers
+@{
+    ViewBag.Title = "MusteriSil";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+<h2>MusteriSil</h2>
+
+<h2>Araç Silme Sayfası</h2>
+<form action="/Customer/MusteriSil" method="post">
+    <label>@Model.MusteriAdi silmek istiyor musunuz</label>
+    <input typeof="hidden" name="MusteriID" value="@Model.MusteriID" readonly />
+    <br />
+    <input type="submit" value="Evet" class="btn btn-danger" /> <br />
+    <a class="btn btn-dark" href="/Vehicles/AraclariListele">Hayır</a>
+</form>

@@ -63,13 +63,17 @@ namespace aracKiralama.Controllers
         public ActionResult SignUp(Users user)
         {
             AracKiralaModel model =new AracKiralaModel();
+
+            VehicleOwners vehicle = new VehicleOwners();
             
                 model.Users.Add(user);
                 model.SaveChanges();
+                vehicle.KullaniciID = user.KullaniciID;
 
                 if (user.RolID == 3)
                 {
-                    return RedirectToAction("SirketEkle", "VehicleOwners");
+
+                    return RedirectToAction("SirketEkle", "VehicleOwners",vehicle);
                 }
                 else if(user.RolID == 2)
                 {
@@ -84,5 +88,6 @@ namespace aracKiralama.Controllers
 
            
         }
+
     }
 }

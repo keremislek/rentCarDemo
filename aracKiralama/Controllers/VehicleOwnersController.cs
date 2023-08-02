@@ -32,6 +32,7 @@ namespace aracKiralama.Controllers
         [HttpPost]
         public ActionResult SirketEkle(VehicleOwners vo)
         {
+          
             model.VehicleOwners.Add(vo);
             model.SaveChanges();
 
