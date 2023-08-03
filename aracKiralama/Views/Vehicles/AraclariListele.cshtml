@@ -6,10 +6,11 @@
 
 <h2>ARAÇLAR SAYFASI</h2>
 @if(User.IsInRole("1")|| User.IsInRole("3")){
-
+    
 <a href="/Vehicles/AracEkle" class="btn bg-white">Yeni Araç Ekle</a>
  
 }
+
 <a href="/Customer/MusteriEkle" class="btn bg-white">Müşteri Kayıt</a>
 
 <table class="table table-striped">
@@ -40,7 +41,12 @@
                 <td><img src="@v.AracResim" /></td>
                 <td><a class="btn btn-danger carousel" href="/Vehicles/AracSil/@v.AracID">Sil</a></td>
                 <td><a class="btn btn-success" href="/Vehicles/AracGuncelle/@v.AracID">Güncelle</a></td>
-                <td><a class="btn btn-success" href="/Rentals/AracKirala/@v.AracID">Kirala</a></td>
+               
+                @if (User.IsInRole("2"))
+                {
+                    <td><a class="btn btn-success" href="/Rentals/AracKirala/@v.AracID">Kirala</a></td>
+                }
+
 
             </tr>
         }

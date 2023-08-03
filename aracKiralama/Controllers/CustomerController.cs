@@ -11,8 +11,12 @@ namespace aracKiralama.Controllers
     {
         // GET: Customer
         AracKiralaModel model=new AracKiralaModel();
-        public ActionResult Index()
+
+        [HttpGet]
+        public ActionResult MusteriListele()
         {
+            List<Customers> customer=model.Customers.ToList();
+            ViewBag.customer=customer;
             return View();
         }
 

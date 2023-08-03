@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 
 
+
 namespace aracKiralama.Controllers
 {
     [Authorize]
@@ -32,7 +33,24 @@ namespace aracKiralama.Controllers
             }
             else
             {
-                FormsAuthentication.SetAuthCookie(user.KullaniciAdi, false);
+                //FormsAuthentication.SetAuthCookie(user.KullaniciAdi, false);
+                Session["UserID"] = user.KullaniciID;
+                Session["UserName"] = user.KullaniciAdi;
+
+
+                var encodedTicket = FormsAuthentication.Encrypt(
+                   new FormsAuthenticationTicket(
+                      user.KullaniciID,
+                      user.KullaniciAdi,
+                      DateTime.Now,
+                      DateTime.UtcNow.Add(FormsAuthentication.Timeout),
+                      true,
+                      user.ToString()));
+
+                var httpCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encodedTicket);
+                Response.Cookies.Add(httpCookie);
+                
+                
                 return RedirectToAction("Index", "Home");
             }
            

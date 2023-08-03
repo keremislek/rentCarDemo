@@ -26,7 +26,7 @@ namespace aracKiralama.Controllers
 
         [HttpGet]
         [Authorize]
-        [MyAuthorization(Roles = "3")]
+        [MyAuthorization(Roles = "1,3")]
         public ActionResult AracEkle()
         {
             List<VehicleOwners> vehicleOwners = model.VehicleOwners.ToList();
@@ -37,7 +37,7 @@ namespace aracKiralama.Controllers
         }
         [HttpPost]
         [Authorize]
-        [MyAuthorization(Roles = "3")]
+        [MyAuthorization(Roles = "1,3")]
         public ActionResult AracEkle(Vehicles vehicle)
         {
             model.Vehicles.Add(vehicle);

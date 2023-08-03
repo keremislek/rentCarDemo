@@ -1,61 +1,47 @@
 ﻿@using aracKiralama.Models
 @model Rentals
-
 @{
     ViewBag.Title = "AracKirala";
     Layout = "~/Views/Layout.cshtml";
 }
 
-<h2>Arac Kiralama Sayfası</h2>
+<h2>Arac Kirala</h2>
+
+
 
 <form action="/Rentals/AracKirala" method="post">
     <div class="form-row">
-        <div class="form-group col-md-6">
-            @if (Model != null)
-            {
-                <input type="hidden" class="form-control" value="@Model.KiralamaID" name="KiralamaID" />
-            }
-            @if (Model != null)
-            {
-                <input type="hidden" class="form-control" value="@Model.MusteriID" name="MüsteriID" />
-            }
-            <label for="inputEmail4"></label>
-            @if (Model != null)
-            {
-                <input type="hidden" class="form-control" name="AracID" value="@Model.AracID" id="AracID">
-            }
 
+        <div class="form-group">
+            <input type="hidden" class="form-control" value="@Model.KiralamaID" id="KiralamaID" name="KiralamaID">
         </div>
-        <div class="form-group col-md-6">
-            <label for="inputEmail4">Kiralama Tarihi</label>
-            @if (Model != null)
-            {
-                <input type="datetime" class="form-control" name="AracModeli" value="@Model.KiralamaTarihi" id="KiralamaTarihi">
-            }
-            else
-            {
-                <input type="datetime" class="form-control" name="KiralamaTarihi" value="" id="KiralamaTarihi">
-            }
+        <div class="form-group">
+            <input type="hidden" class="form-control" value="@Session["UserID"]" id="MusteriID" name="MusteriID">
         </div>
-        <div class="form-group col-md-6">
-            <label for="inputEmail4">İade Tarihi</label>
-            @if (Model != null)
-            {
-                <input type="datetime" class="form-control" value="@Model.IadeTarihi" name="IadeTarihi" id="IadeTarihi">
-            }
-            else
-            {
-                <input type="datetime" class="form-control" name="IadeTarihi" id="IadeTarihi">
-            }
+        <div class="form-group">
+            <input type="hidden" class="form-control" value="@Model.AracID" id="AracID" name="AracID">
+        </div>
 
+        <div class="d-flex flex-row align-items-center mb-4">
+            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+            <div class="form-outline flex-fill mb-0">
+                <input type="date" id="KiralamaTarihi" name="KiralamaTarihi" value="@Model.KiralamaTarihi" class="form-control" />
+                <label class="form-label" for="form3Example1c">Kiralama Tarihi</label>
+            </div>
         </div>
-        <div class="form-group col-md-6">
-            <label for="inputEmail4">Toplam Fiyat</label>
-        
-
+        <div class="d-flex flex-row align-items-center mb-4">
+            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+            <div class="form-outline flex-fill mb-0">
+                <input type="date" id="IadeTarihi" name="IadeTarihi" value="@Model.IadeTarihi" class="form-control" />
+                <label class="form-label" for="form3Example1c">İade Tarihi</label>
+            </div>
         </div>
-        <div class="form-group col-md-4">
-            <label for="inputState">Tedarikçi</label>
+        <div class="d-flex flex-row align-items-center mb-4">
+            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+            <div class="form-outline flex-fill mb-0">
+                <input readonly type="number" id="ToplamFiyat" name="ToplamFiyat" value="@Model.ToplamFiyat" class="form-control" />
+                <label class="form-label" for="form3Example1c">Fiyat</label>
+            </div>
         </div>
 
 

@@ -1,0 +1,38 @@
+﻿@using aracKiralama.Models
+@{
+    ViewBag.Title = "MusteriListele";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+
+
+<h2>Müşteriler Sayfası</h2>
+<a href="/Customer/MusteriEkle" class="btn bg-white">Yeni Müşteri Ekle</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+
+            <th scope="col">Müşteri Adı</th>
+            <th scope="col">Adres</th>
+            <th scope="col">Telefon Numarası</th>
+
+
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Customers c in ViewBag.customer as List<Customers>)
+        {
+            <tr>
+                <td>@c.MusteriAdi</td>
+                <td>@c.MusteriAdres</td>
+                <td>@c.MusteriTelefon</td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+
+

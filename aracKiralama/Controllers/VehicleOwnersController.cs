@@ -15,9 +15,11 @@ namespace aracKiralama.Controllers
         public ActionResult SirketListele()
         {
             List<VehicleOwners> vo=model.VehicleOwners.ToList();
+            List<Vehicles> vehicle=model.Vehicles.ToList();
+            ViewBag.vehicle = vehicle;
             ViewBag.vehicleOwners = vo;
-            Vehicles vehicles = new Vehicles();
-            return View(vehicles);
+            
+            return View(vehicle);
         }
 
         [HttpGet]
