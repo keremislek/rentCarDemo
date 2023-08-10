@@ -7,7 +7,11 @@
 
 
 <h2>Müşteriler Sayfası</h2>
-<a href="/Customer/MusteriEkle" class="btn bg-white">Yeni Müşteri Ekle</a>
+@if (User.IsInRole("1") || User.IsInRole("3"))
+{
+    <a href="/Customer/MusteriEkle" class="btn bg-white">Yeni Müşteri Ekle</a>
+}
+
 
 <table class="table table-striped">
     <thead>
@@ -25,11 +29,19 @@
     <tbody>
         @foreach (Customers c in ViewBag.customer as List<Customers>)
         {
+           
             <tr>
                 <td>@c.MusteriAdi</td>
                 <td>@c.MusteriAdres</td>
                 <td>@c.MusteriTelefon</td>
-                
+                <td>
+                    @if (User.IsInRole("2") && c.Users.KullaniciAdi == User.Identity.Name)
+                    {
+                        <a class="btn btn-danger" href="/Customer/MusteriSil/@c.MusteriID">Sil</a>
+                        <a class="btn btn-success" href="/Customer/MusteriGuncelle/@c.MusteriID">Güncelle</a>
+                    }
+                </td>
+
             </tr>
         }
     </tbody>

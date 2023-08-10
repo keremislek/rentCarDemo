@@ -1,0 +1,37 @@
+﻿
+@using aracKiralama.Models
+@{
+    ViewBag.Title = "AraclariListeleBySirket";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+<h2>@ViewBag.owner.SirketAdi - Araçları</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Araç ID</th>
+            <th scope="col">Araç Adı</th>
+            <th scope="col">Model</th>
+            <th scope="col">Yıl</th>
+            <th scope="col">Fiyat</th>
+            <th scope="col">Kirala</th>
+            <!-- Diğer sütunlar -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Vehicles v in ViewBag.vehicles as List<Vehicles>)
+        {
+            <tr>
+                <td>@v.AracID</td>
+                <td>@v.AracAdi</td>
+                <td>@v.AracModeli</td>
+                <td>@v.AracYili</td>
+                <td>@v.KiralamaFiyati</td>
+                
+                <td><a class="btn btn-info" href="/Rentals/AracKirala/@v.AracID">Kirala</a></td>
+                <!-- Diğer hücreler -->
+            </tr>
+        }
+    </tbody>
+</table>

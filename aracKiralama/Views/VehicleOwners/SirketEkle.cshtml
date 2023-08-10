@@ -10,14 +10,25 @@
 
 
     <div class="form-group">
-        <input type="hidden" class="form-control" value="@Model.SahipID"  id="SahipID" name="SahipID">
+        @if (Model != null)
+        {
+            <input type="hidden" class="form-control" value="@Model.SahipID" id="SahipID" name="SahipID">
+        }
     </div>
 
 
     <div class="d-flex flex-row align-items-center mb-4">
         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
         <div class="form-outline flex-fill mb-0">
-            <input type="text" id="SahipAdi" name="SahipAdi" value="@Model.SahipAdi" class="form-control" />
+            @if (Model != null)
+            {
+                <input type="text" id="SahipAdi" name="SahipAdi" value="@Model.SahipAdi" class="form-control" />
+            }
+            else
+            {
+                <input type="text" id="SahipAdi" name="SahipAdi" value="" class="form-control" />
+            }
+
             <label class="form-label" for="form3Example1c">Şirket Sahibinin Adı-Soyadı</label>
         </div>
     </div>
@@ -25,7 +36,15 @@
     <div class="d-flex flex-row align-items-center mb-4">
         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
         <div class="form-outline flex-fill mb-0">
-            <input type="text" id="SahipTelefon" class="form-control" name="SahipTelefon" value="@Model.SahipTelefon" />
+            @if (Model != null)
+            {
+                <input type="text" id="SahipTelefon" class="form-control" name="SahipTelefon" value="@Model.SahipTelefon" />
+            }
+            else
+            {
+                <input type="text" id="SahipTelefon" class="form-control" name="SahipTelefon" value="" />
+
+            }
             <label class="form-label" for="form3Example3c">Şirket Telefon</label>
         </div>
     </div>
@@ -33,30 +52,50 @@
     <div class="d-flex flex-row align-items-center mb-4">
         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
         <div class="form-outline flex-fill mb-0">
-            <input type="text" id="Sifre" class="form-control" name="SirketAdi" value="@Model.SirketAdi" />
+            @if (Model != null)
+            {
+                <input type="text" id="Sifre" class="form-control" name="SirketAdi" value="@Model.SirketAdi" />
+
+            }
+            else
+            {
+                <input type="text" id="Sifre" class="form-control" name="SirketAdi" value="" />
+            }
+
             <label class="form-label" for="form3Example4c">Şirket Adı</label>
         </div>
     </div>
     <div class="d-flex flex-row align-items-center mb-4">
         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
         <div class="form-outline flex-fill mb-0">
-            <input type="text" id="SirketAdresi" class="form-control" name="SirketAdresi" value="@Model.SirketAdresi" />
+            @if (Model != null)
+            {
+                <input type="text" id="SirketAdresi" class="form-control" name="SirketAdresi" value="@Model.SirketAdresi" />
+
+            }
+            else
+            {
+                <input type="text" id="SirketAdresi" class="form-control" name="SirketAdresi" value="" />
+            }
+
             <label class="form-label" for="form3Example4c">Şirket Adresi</label>
         </div>
     </div>
     <br />
-    <div class="form-group">
+    <!--- <div class="form-group">
         <label>Kullanıcı</label>
-        <select class="form-select-list" id="KullaniciID" name="KullaniciID">
-            @foreach (Users t in ViewBag.users as List<Users>)
+        <input type="hidden" class="form-select-list" id="KullaniciID" name="KullaniciID" value="@Session["UserID"]" />
+    </div>-->
+    <div class="form-group col-md-4">
+        <label for="inputState">Kullanıcı</label>
+        <select name="KullaniciID" id="KullaniciID" class="form-control">
+            @foreach (Users u in ViewBag.user as List<Users>)
             {
-
-
-                if (t.RolID == 3 )
-                {
-                    <option value="@t.KullaniciID">@t.KullaniciAdi</option>
-                }
-
+                <option value="@u.KullaniciID">@u.KullaniciAdi</option>
+            }
+            @if (Model.Users != null)
+            {
+                <option value="@Model.KullaniciID" selected>@Model.Users.KullaniciAdi</option>
             }
         </select>
     </div>

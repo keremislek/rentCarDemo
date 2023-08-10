@@ -5,6 +5,7 @@ namespace aracKiralama.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Drawing.Imaging;
 
     public partial class Vehicles
     {
@@ -31,6 +32,7 @@ namespace aracKiralama.Models
         public decimal KiralamaFiyati { get; set; }
 
         public int? AracSahibiID { get; set; }
+        
 
         public byte[] AracResim { get; set; }
 

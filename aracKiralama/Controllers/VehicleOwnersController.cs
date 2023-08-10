@@ -17,9 +17,9 @@ namespace aracKiralama.Controllers
             List<VehicleOwners> vo=model.VehicleOwners.ToList();
             List<Vehicles> vehicle=model.Vehicles.ToList();
             ViewBag.vehicle = vehicle;
-            ViewBag.vehicleOwners = vo;
+            ViewBag.vo = vo;
             
-            return View(vehicle);
+            return View();
         }
 
         [HttpGet]
@@ -35,10 +35,45 @@ namespace aracKiralama.Controllers
         public ActionResult SirketEkle(VehicleOwners vo)
         {
           
-            model.VehicleOwners.Add(vo);
+            model.VehicleOwners.AddOrUpdate(vo);
             model.SaveChanges();
 
             return RedirectToAction("SirketListele");
+        }
+        [HttpGet]
+        public ActionResult SirketSil(int id)
+        {
+            VehicleOwners owners=model.VehicleOwners.FirstOrDefault(x=>x.SahipID==id);
+            if (owners != null)
+            {
+                return View(owners);
+            }
+            return null;
+        }
+        [HttpPost]
+        public ActionResult SirketSil(VehicleOwners vo)
+        {
+            vo=model.VehicleOwners.FirstOrDefault(x=>x.SahipID==vo.SahipID);
+            if (vo != null)
+            {
+                model.VehicleOwners.Remove(vo);
+                model.SaveChanges();
+               
+            }
+            return RedirectToAction("SirketListele");
+        }
+        [HttpGet]
+        public ActionResult SirketGuncelle(int id)
+        {
+            VehicleOwners vo = model.VehicleOwners.FirstOrDefault(x => x.SahipID == id);
+            List<Users> user=model.Users.ToList();
+            ViewBag.user=user;
+            if(vo != null)
+            {
+                return View("SirketEkle", vo);
+            }
+            return null;
+
         }
     }
 }

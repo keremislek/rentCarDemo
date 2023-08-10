@@ -21,15 +21,15 @@ namespace aracKiralama.Controllers
             return View(db);
         }
         [HttpPost]
-        [Authorize]
-        
+        [Authorize]  
         public ActionResult AracKirala(Rentals rental)
         {
             if (rental != null)
             {
                 model.Rentals.Add(rental);
                 model.SaveChanges();
-                return RedirectToAction("Index");
+
+                return RedirectToAction("AracKirala","Payments",rental);
             }
             return null;
         }
@@ -40,16 +40,28 @@ namespace aracKiralama.Controllers
 
             List<Vehicles> vehicles = model.Vehicles.ToList();
             List<Customers> customers = model.Customers.ToList();
+            List<Cities> cities= model.Cities.ToList();
+            List<Extras> extras= model.Extras.ToList();
+            ViewBag.extras = extras;
+            ViewBag.cities= cities;
             ViewBag.vehicles = vehicles;
             ViewBag.customers = customers;
-
-
             //vehicles.Where();  url VID  + CID
-
             Rentals rentals = new Rentals();
             rentals.AracID = id;
+            Vehicles v1=model.Vehicles.FirstOrDefault(x=>x.AracID==id);
+            rentals.ToplamFiyat = v1.KiralamaFiyati;
+            
+        
             return View(rentals);
 
         }
+        public ViewResult Details(int id)
+        {
+
+
+            return View();
+        }
+
     }
 }

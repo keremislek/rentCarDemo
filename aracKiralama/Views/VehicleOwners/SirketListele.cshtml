@@ -1,12 +1,16 @@
 ﻿@using aracKiralama.Models
-@model Vehicles
 @{
     ViewBag.Title = "SirketListele";
     Layout = "~/Views/Layout.cshtml";
 }
 
 <h2>Şirketler Sayfası</h2>
-<a href="/VehicleOwners/SirketEkle" class="btn bg-white">Yeni Şirket Ekle</a>
+@if (User.IsInRole("1") || User.IsInRole("3"))
+{
+    <a href="/VehicleOwners/SirketEkle" class="btn bg-white">Yeni Şirket Ekle</a>
+ 
+}
+
 
 <table class="table table-striped">
     <thead>
@@ -22,13 +26,20 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (VehicleOwners vo in ViewBag.vehicleOwners as List<VehicleOwners>)
+        @foreach (VehicleOwners vo in ViewBag.vo as List<VehicleOwners>)
         {
             <tr>
                 <td>@vo.SirketAdi</td>
                 <td>@vo.SirketAdresi</td>
                 <td>@vo.SahipTelefon</td>
-                 <td>@Model.AracAdi</td> 
+                @if (User.IsInRole("1") || User.IsInRole("3"))
+                {
+                    <td><a class="btn btn-danger carousel" href="/VehicleOwners/SirketSil/@vo.SahipID">Sil</a></td>
+
+                    <td><a class="btn btn-success" href="/VehicleOwners/SirketGuncelle/@vo.SahipID">Güncelle</a></td>
+                }
+
+                <td><a class="btn btn-info" href="/Vehicles/AraclariListeleBySirket/@vo.SahipID">Araçlar</a></td>
             </tr>
         }
     </tbody>

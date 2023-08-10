@@ -20,13 +20,18 @@ namespace aracKiralama.Controllers
         {
             return View();
         }
-        
+
         [AllowAnonymous]
         [HttpPost]
         public ActionResult Login(Users users)
         {
-            AracKiralaModel model = new AracKiralaModel();  
-            Users user=model.Users.FirstOrDefault(x=>x.KullaniciAdi==users.KullaniciAdi && x.Sifre==users.Sifre);
+            AracKiralaModel model = new AracKiralaModel();
+           
+            Users user = model.Users.FirstOrDefault(x => x.KullaniciAdi == users.KullaniciAdi && x.Sifre == users.Sifre);
+
+             Customers c = model.Customers.FirstOrDefault(x => x.KullaniciID == user.KullaniciID);
+             VehicleOwners vo = model.VehicleOwners.FirstOrDefault(x => x.KullaniciID == user.KullaniciID);
+
             if (user == null)
             {
                 return ViewBag.hata = "Kullanıcı adı veya şifre hatalı";
@@ -34,10 +39,8 @@ namespace aracKiralama.Controllers
             else
             {
                 //FormsAuthentication.SetAuthCookie(user.KullaniciAdi, false);
-                Session["UserID"] = user.KullaniciID;
-                Session["UserName"] = user.KullaniciAdi;
-
-
+                    Session["UserID"] = user.KullaniciID;
+                    Session["UserName"] = user.KullaniciAdi;
                 var encodedTicket = FormsAuthentication.Encrypt(
                    new FormsAuthenticationTicket(
                       user.KullaniciID,
@@ -49,13 +52,24 @@ namespace aracKiralama.Controllers
 
                 var httpCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encodedTicket);
                 Response.Cookies.Add(httpCookie);
-                
-                
+                if (user.RolID == 3)
+                {
+                    if (vo == null || string.IsNullOrEmpty(vo.SirketAdi))
+                        return RedirectToAction("SirketEkle", "VehicleOwners", user);
+                }
+
+                if (user.RolID == 2)
+                {
+                    if (c == null || string.IsNullOrEmpty(c.MusteriAdi))
+                        return RedirectToAction("MusteriEkle", "Customer", user);
+                }
+
+
                 return RedirectToAction("Index", "Home");
             }
-           
+
         }
-        
+
         [Authorize]
         public ActionResult Logout()
         {
@@ -66,13 +80,13 @@ namespace aracKiralama.Controllers
         {
             return View();
         }
-        
+
         [HttpGet]
         [AllowAnonymous]
         public ActionResult SignUp()
         {
             AracKiralaModel model = new AracKiralaModel();
-            Users user= new Users();
+            Users user = new Users();
             return View(user);
         }
 
@@ -80,31 +94,19 @@ namespace aracKiralama.Controllers
         [AllowAnonymous]
         public ActionResult SignUp(Users user)
         {
-            AracKiralaModel model =new AracKiralaModel();
+            AracKiralaModel model = new AracKiralaModel();
 
             VehicleOwners vehicle = new VehicleOwners();
-            
-                model.Users.Add(user);
-                model.SaveChanges();
-                vehicle.KullaniciID = user.KullaniciID;
 
-                if (user.RolID == 3)
-                {
+            model.Users.Add(user);
+            model.SaveChanges();
+            vehicle.KullaniciID = user.KullaniciID;
 
-                    return RedirectToAction("SirketEkle", "VehicleOwners",vehicle);
-                }
-                else if(user.RolID == 2)
-                {
-                    return RedirectToAction("MusteriEkle","Customers");
+                        
+            return RedirectToAction("Index", "Home");       
 
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-            
 
-           
+
         }
 
     }

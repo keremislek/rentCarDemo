@@ -12,9 +12,15 @@ namespace aracKiralama.Controllers
     {
         // GET: Home
         AracKiralaModel model = new AracKiralaModel();
+        
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Kayıt(Users user)
+        {   
+            return View(user);
         }
 
 

@@ -6,7 +6,7 @@
 }
 
 <h2>Araç Ekle</h2>
-<form class="mx-1 mx-md-4" action="/Vehicles/AracEkle" method="post">
+<form class="mx-1 mx-md-4" action="/Vehicles/AracEkle" method="post" enctype="multipart/form-data">
 
 
     <div class="form-group">
@@ -44,13 +44,28 @@
             <label class="form-label" for="form3Example4c">Günlük Fiyat</label>
         </div>
     </div>
-    <div class="d-flex flex-row align-items-center mb-4">
-        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-        <div class="form-outline flex-fill mb-0">
-            <input type="text" id="AracResim" class="form-control" name="AracResim" value="@Model.AracResim" />
-            <label class="form-label" for="form3Example4c">Araç Foto</label>
+ 
+     <div class="form-group">
+         <label asp-for="AracResim" class="control-label"></label>
+         <input type="file" id="AracResimInput" name="AracResim" />
+         <span asp-validation-for="AracResim" class="text-danger"></span>
+
+     </div>
+
+    <!---
+
+        <div class="d-flex flex-row align-items-center mb-4">
+            <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+            <div class="form-outline flex-fill mb-0">
+                <input type="file" id="AracResimInput" class="form-control" name="AracResim" value="@Model.AracResim"/>
+                <label class="form-label" for="AracResim">Araç Fotoğrafı Seç ve Yükle</label>
+            </div>
         </div>
-    </div>
+
+    ---->
+
+
+
     <br />
     <div class="form-group">
         <label>Tedarikçi Firma</label>
@@ -60,12 +75,44 @@
                 <option value="@v.SahipID">@v.SirketAdi</option>
             }
         </select>
+
     </div>
 
     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-        <button type="submit" class="btn btn-primary">Ekle</button>
+        <button type="submit" id="aracEkleButton" class="btn btn-primary">Ekle</button>
     </div>
 </form>
+<script>
+    document.getElementById("aracEkleButton").addEventListener("click", function () {
+        var imageInput = document.getElementById('AracResimInput');
+        if (imageInput.files.length > 0) {
+            var reader = new FileReader();
+            console.log(base64Data);
+            reader.onload = function (event) {
+                var base64Data = event.target.result.split(',')[1]; // Base64 veriyi al
+                // Şimdi base64Data'yı sunucuya gönderebilirsiniz.
+                // Örnek:
+                $.ajax({
+                    url: '/Vehicles/AracEkle', // Uygun URL'yi kullanın
+                    type: 'POST',
+                    data: { AracResim: base64Data }, // Sunucuya gönderilecek veriler
+                    success: function (data) {
+                        // Başarılı cevap
+                        // Yönlendirme vb. işlemleri burada yapabilirsiniz.
+                    },
+                    error: function () {
+                        // Hata durumunu ele al
+                    }
+                });
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+        } else {
+            alert("Lütfen bir dosya seçin.");
+        }
+    });
+</script>
+
+
 
 
 

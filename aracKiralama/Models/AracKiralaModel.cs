@@ -104,6 +104,7 @@ namespace aracKiralama.Models
             modelBuilder.Entity<Vehicles>()
                 .Property(e => e.KiralamaFiyati)
                 .HasPrecision(10, 2);
+          ;
 
             modelBuilder.Entity<Vehicles>()
                 .HasMany(e => e.Extras)

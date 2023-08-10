@@ -16,6 +16,23 @@ namespace aracKiralama.Controllers
         public ActionResult MusteriListele()
         {
             List<Customers> customer=model.Customers.ToList();
+
+            if (User.IsInRole("2")) // Eğer giriş yapan kullanıcı müşteri ise
+            {
+                string kullaniciAdi = User.Identity.Name;
+                Users user = model.Users.FirstOrDefault(u => u.KullaniciAdi == kullaniciAdi);
+
+                if (user != null)
+                {
+                    customer = model.Customers.Where(c => c.KullaniciID == user.KullaniciID).ToList();
+                }
+            }
+            else if (User.IsInRole("1") || User.IsInRole("3")) // Eğer giriş yapan kullanıcı admin veya şirket ise
+            {
+                customer = model.Customers.ToList();
+            }
+
+
             ViewBag.customer=customer;
             return View();
         }
@@ -36,7 +53,7 @@ namespace aracKiralama.Controllers
             model.Customers.Add(customer);
             model.SaveChanges();
 
-            return RedirectToAction("AraclariListele","Vehicles");
+            return RedirectToAction("Index","Home");
         }
         [HttpGet]
         public ActionResult MusteriSil(int id)

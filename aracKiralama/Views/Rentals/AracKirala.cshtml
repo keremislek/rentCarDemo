@@ -16,7 +16,7 @@
             <input type="hidden" class="form-control" value="@Model.KiralamaID" id="KiralamaID" name="KiralamaID">
         </div>
         <div class="form-group">
-            <input type="hidden" class="form-control" value="@Session["UserID"]" id="MusteriID" name="MusteriID">
+            <input type="hidden" class="form-control" value="@Session["UserID"]" id="KullaniciID" name="KullaniciID">
         </div>
         <div class="form-group">
             <input type="hidden" class="form-control" value="@Model.AracID" id="AracID" name="AracID">
@@ -25,28 +25,97 @@
         <div class="d-flex flex-row align-items-center mb-4">
             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
             <div class="form-outline flex-fill mb-0">
-                <input type="date" id="KiralamaTarihi" name="KiralamaTarihi" value="@Model.KiralamaTarihi" class="form-control" />
+                <input type="date" id="KiralamaTarihi" name="KiralamaTarihi" value="@Model.KiralamaTarihi" class="form-control" onchange="calculateTotalPrice()" />
                 <label class="form-label" for="form3Example1c">Kiralama Tarihi</label>
             </div>
         </div>
+
         <div class="d-flex flex-row align-items-center mb-4">
             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
             <div class="form-outline flex-fill mb-0">
-                <input type="date" id="IadeTarihi" name="IadeTarihi" value="@Model.IadeTarihi" class="form-control" />
+                <input type="date" id="IadeTarihi" data-birim="@Model.ToplamFiyat" name="IadeTarihi" value="@Model.IadeTarihi" class="form-control" onchange="calculateTotalPrice()" />
                 <label class="form-label" for="form3Example1c">İade Tarihi</label>
             </div>
         </div>
-        <div class="d-flex flex-row align-items-center mb-4">
+
+
+
+        <div class="d-flex flex-row align-items mb-4">
             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
             <div class="form-outline flex-fill mb-0">
-                <input readonly type="number" id="ToplamFiyat" name="ToplamFiyat" value="@Model.ToplamFiyat" class="form-control" />
+                <input readonly type="text" id="ToplamFiyat" name="ToplamFiyat" value="1200,00" class="form-control" />
                 <label class="form-label" for="form3Example1c">Fiyat</label>
             </div>
         </div>
+        <div class="form-group">
+            <label for="selectedExtras">Ekstraları Seçiniz:</label>
+            <select multiple class="form-control" id="selectedExtras" name="selectedExtras" onchange="calculateTotalPrice()">
+                @foreach (Extras extra in ViewBag.extras as List<Extras>)
+                {
+                    <option value="@extra.EkstraID">@extra.EkstraAdi - @extra.EkstraFiyati ₺</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Şehir Seçiniz</label>
+            <select class="form-select-list" id="AracSahibiID" name="AracSahibiID">
+                @foreach (Cities c in ViewBag.cities as List<Cities>)
+                {
+                    <option value="@c.SehirID">@c.SehirAdi</option>
+                }
+            </select>
+
+        </div>
+
+        <script>
+           
+
+
+            function stringToDecimal(str) {
+                const insideStr = str.replace(".", ",");
+
+                const number = parseFloat(insideStr);
+
+                return number;
+            }
+            function calculateTotalPrice() {
+                var kiralamaTarihi = new Date(document.getElementById("KiralamaTarihi").value);
+                var iadeTarihi = new Date(document.getElementById("IadeTarihi").value);
+
+                if (kiralamaTarihi > iadeTarihi) {
+                    alert("Kiralama tarihi iade tarihinden büyük olamaz!");
+                    document.getElementById("IadeTarihi").value = "";
+                    document.getElementById("ToplamFiyat").value = "";
+                    return;
+                }
+
+                var gunFarki = (iadeTarihi - kiralamaTarihi) / (1000 * 3600 * 24);
+                var birimFiyat = parseFloat(document.getElementById("IadeTarihi").getAttribute("data-birim"));
+                var toplamFiyat = gunFarki * birimFiyat;
+                document.getElementById("ToplamFiyat").value = stringToDecimal(toplamFiyat.toFixed(2));
+            }
+
+
+            function calculateTotalPrice1() {
+                var birimFiyat = parseFloat(document.getElementById("ToplamFiyat").value);
+                var selectedExtras = document.getElementById("selectedExtras");
+                var totalExtrasPrice = 0;
+
+                for (var i = 0; i < selectedExtras.options.length; i++) {
+                    if (selectedExtras.options[i].selected) {
+                        var extraPrice = parseFloat(selectedExtras.options[i].value.split(' - ')[1]);
+                        totalExtrasPrice += extraPrice;
+                    }
+                }
+
+                var totalPrice = birimFiyat + totalExtrasPrice;
+                document.getElementById("ToplamFiyat").value = stringToDecimal(totalPrice.toFixed(2));
+            }
+        </script>
 
 
     </div>
-
-    <button type="submit" class="btn btn-primary">Kirala</button>
+     <button type="submit" class="btn btn-primary">Kirala</button> 
 </form>
 

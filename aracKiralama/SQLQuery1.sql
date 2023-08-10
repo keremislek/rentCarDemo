@@ -1,0 +1,1 @@
+﻿insert into extras (EkstraAdi,EkstraFiyati) values ('Mini Buzdolabı',85);

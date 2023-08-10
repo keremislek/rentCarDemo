@@ -1,0 +1,27 @@
+﻿@using aracKiralama.Models
+@model Users
+@{
+    ViewBag.Title = "Kayıt";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+<h2>Kayıt Sayfasına Hoşgeldiniz</h2>
+
+<a>Hangi Kullanıcı Türüsünüz</a> <br />
+
+<div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" id="RolID" name="RolID" value="1">
+    <label class="form-check-label" for="inlineCheckbox3">Admin</label>
+</div>
+
+
+<div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" id="RolID" name="RolID" value="2">
+    <label class="form-check-label" for="inlineCheckbox3">Müşteri</label>
+    <a href="/Customer/MusteriEkle" class="btn btn-danger">Müşteri Kayıt</a>
+</div>
+<div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" id="RolID" name="RolID" value="3">
+    <label class="form-check-label" for="inlineCheckbox3">Şirket</label>
+    <a href="/VehicleOwners/SirketEkle">Şirket Kayıt</a>
+</div>

@@ -1,0 +1,59 @@
+﻿@using aracKiralama.Models
+
+@{
+    ViewBag.Title = "ExtraListele";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+<h2>Extra Listesi</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+
+            <th scope="col">Ekstra ID</th>
+            <th scope="col">Ekstra Adı</th>
+            <th scope="col">Ekstra Fiyatı</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Extras e in ViewBag.extras as List<Extras>)
+        {
+            <tr>
+                <td>@e.EkstraID</td>
+                <td>@e.EkstraAdi</td>
+                <td>@e.EkstraFiyati</td>
+                <td></td>
+                <td><a class="btn btn-danger carousel" href="/Extra/ExtraEkle/@e.EkstraID">Ekle</a></td>
+                @if (e.EkstraID == 1)
+                {
+                    <td><a class="btn btn-danger carousel" href="~/images/gps-navigasyon.jpg">Görüntüle</a></td>
+                }
+                else if (e.EkstraID == 2)
+                {
+                    <td><a class="btn btn-danger carousel" href="~/images/çocuk koltuğu.jpeg">Görüntüle</a></td>
+                }
+                else if (e.EkstraID == 3)
+                {
+                    <td><a class="btn btn-danger carousel" href="~/images/arac-tv.jpg">Görüntüle</a></td>
+                }
+                else 
+                {
+                    <td><a class="btn btn-danger carousel" href="~/images/mini-dolap.jpg">Görüntüle</a></td>
+                }
+
+
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+

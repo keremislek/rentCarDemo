@@ -1,0 +1,35 @@
+﻿@using aracKiralama.Models
+@model List<Payments>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+
+
+<h2>Payment Listesi</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>Ödeme ID</th>
+        <th>Kiralama ID</th>
+        <th>Ödeme Miktarı</th>
+        <th>Ödeme Tarihi</th>
+        <!-- Diğer ödeme bilgileri sütunları eklenebilir -->
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var payment in Model)
+    {
+        <tr>
+            <td>@payment.OdemeID</td>
+            <td>@payment.KiralamaID</td>
+            <td>@payment.OdemeMiktari</td>
+            <td>@payment.OdemeTarihi</td>
+            <!-- Diğer ödeme bilgileri sütunları eklenebilir -->
+       
+        </tr>
+    }
+</table>
+
